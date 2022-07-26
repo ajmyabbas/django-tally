@@ -15,8 +15,12 @@ urlpatterns = [
     path('voucher',views.voucher,name='voucher'),
     path('vouchpage',views.vouchpage,name='vouchpage'),
 
-
-
-
+    path('groupsummary',views.groupsummary,name='groupsummary'),
+    path('categorysummary',views.categorysummary,name='categorysummary'),
+    path('primarygroups',views.primarygroups,name='primarygroups'),
+    path('primarycategory',views.primarygroups,name='primarygroups'),
+    path('groupsummarypage',views.groupsummarypage,name='groupsummarypage'),
+    
+   path('productsummary',views.productsummary,name='productsummary'),
     
 ]

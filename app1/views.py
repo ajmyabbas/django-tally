@@ -34,3 +34,21 @@ def vouchpage(request):
 
 
 
+def groupsummary(request):
+    return render(request, 'groupsummary.html')
+
+def categorysummary(request):
+    return render(request, 'categorysummary.html')
+
+def primarygroups(request):
+    return render(request, 'primarygroups.html')
+
+def primarycategory(request):
+    return render(request, 'primarycategory.html')
+
+def groupsummarypage(request):
+    return render(request, 'groupsummarypage.html')            
+
+def productsummary(request):
+    return render(request, 'productsummary.html')
+
