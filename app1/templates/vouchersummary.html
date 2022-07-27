@@ -13,11 +13,7 @@
         table,th,td
 {
     border-collapse: collapse;
-    
-}
-th.a{
-    text-align: center;
-    width: 70px;
+  
 }
 table
 {
@@ -26,7 +22,14 @@ table
     background-color:rgba(0,0,0,.4);
 }
 
-
+th.a{
+    text-align: center;
+    width: 120px;
+}
+th.c{
+    text-align: center;
+    width: 80px;  
+}
 th
 {
    
@@ -42,11 +45,17 @@ th
    
 }
 
-td
+ td
 {
     padding: 8px;
     font-size: 13px;
+    text-align: center;
  
+}
+tfoot td.b{
+    padding: 8px;
+    font-size: 13px;
+    text-align: left;
 }
 .btns{
     color: black;
@@ -63,6 +72,10 @@ td
     /* padding: 6px; */
 
 }
+tbody tr:hover td{
+    background-color:orange;
+    color: rgb(15, 14, 14);
+}
 .btns_prnt:hover{
     background-color:orange;
     color: rgb(15, 14, 14);
@@ -71,7 +84,7 @@ td
 
         
     <div style="height: 100vh;">
-        <h6 style="color: rgb(0, 0, 65); background-color: rgb(142, 211, 250);padding: 2px; height:3%;">Stock Group Summary</h6>
+        <h6 style="color: rgb(0, 0, 65); background-color: rgb(142, 211, 250);padding: 2px; height:3%;">Stock Item Vouchers Summary<span style="margin-left: 400px;">ABC pvt.ltd</span></h6>
     <div style=" display:flex; height: 97%;">
     <div style="border-right: .5px solid rgb(218, 218, 218); width:100%;  height: 100%; ">
        
@@ -88,47 +101,52 @@ td
         
           </div>
           </div>-->
-      <hr></hr>
+      <hr>Stock Item:</hr>
       
 
       <table>
         <thead>
         <tr>
-           <span style="text-align: left;"> <th rowspan="3" >Particulars </th></span>
-            <th colspan="3" class="a">ABC pvt.ltd<br>For 1-Apr-22</th>
+            <th rowspan="4" class="c">Date</th>
+            <th rowspan="4">Particulars </th>
+            <th rowspan="4"class="c">Vch Type</th>
+            <th rowspan="4"class="c">Vch No</th>
+            <th colspan="6" class="a" ><br> 1-Apr-22 To 30-Apr-22</th>
         </tr>
 
-    <tr><th colspan="3"class="a">Closing Balance</th></tr>
-        
-         <tr>
-            
-            <th class="a">Quantity</th>
-            <th class="a">Rate</th>
-            <th class="a">Value</th>
-        </tr>
+    <tr> <th colspan="2"class="a" >Inwards</th>
+        <th colspan="2"class="a" >Outwards</th><th colspan="2"class="a" >Closing Balance</th></tr>
+     <tr><th class="a" >Quantity</th><th class="a">Value</th>
+        <th class="a" >Quantity</th><th class="a">Value</th>
+        <th class="a" >Quantity</th><th class="a">Value</th></tr>   
+         
     </thead>
-    <tbody >
-        <tr>
-            <td colspan="12"style="width:200px;"><a href="secondarysummary"><button  class="btns_prnt" id="primary"><h6>Computer <span style="float: right ;">30,000</span></h6>
-            </button></a></td>
+    <tbody>
+        <tr><td>1-Apr-22</td>
+         <td><span style="font-style: italic;">Opening Balance</span></td></tr>
+         <tr>
+            <td>1-Apr-22</td>
+            <td>xyz</td>
+            <td>Purchase</td>
+            <td>1</td>
+<td>150</td>
+<td>1500</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+
+         </tr>
             
-            
-        </tr>
-        <tr>
-            <td colspan="12"style="width:200px;"><a href="secondarysummary"><button  class="btns_prnt" id="primary"><h6>Himalaya<span style="float: right ;">30,000</span></h6>
-            </button></a></td>
-            
-            
-        </tr>
     </tbody>
     <tfoot>
         <tr style=" border-top: 1.5px solid rgb(100, 107, 114);">
-            <td>Grand Total</td>
-            <td></td>
-            <td></td>
-            <td>60000.00</td>
+            <td class="b">Grand Total</td>
+            
         </tr>
     </tfoot>
+     </table>
+    </div>
      </table>
     </div>
     

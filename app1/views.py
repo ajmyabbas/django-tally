@@ -47,8 +47,22 @@ def primarycategory(request):
     return render(request, 'primarycategory.html')
 
 def groupsummarypage(request):
-    return render(request, 'groupsummarypage.html')            
+    return render(request, 'groupsummarypage.html')  
+
+def secondarysummary(request):
+    return render(request, 'secondarysummarypage.html')              
 
 def productsummary(request):
     return render(request, 'productsummary.html')
 
+def vouchersummary(request):
+    return render(request, 'vouchersummary.html')
+
+def categorysummarypage(request):
+    return render(request, 'categorysummarypage.html')
+
+def secondarycategory(request):
+    return render(request, 'secondarycategorypage.html')
+
+def productcategory(request):
+    return render(request, 'productcategory.html')
