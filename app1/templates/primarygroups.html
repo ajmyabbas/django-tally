@@ -90,32 +90,34 @@
             <div class="form1">
                 <a href="javascript:history.go(-1);" class="close">+</a>
                 <h6 style="background-color:rgb(103, 175, 220) ; color:white; text-align: center; padding: 9px 0; width:100%;">Stock Group Creation(Seconadary)</h6>
-                <form action="" method="post">
+                <form action="{% url 'savestockgroup' %}" method="post">
                 {% csrf_token %}
                 <div class="top">
                     <div class="left1" style="color:white ;">
                     <div><p>Name</p></div>
-                    <input type="text">
+                    <input type="text"name="name">
                     <div><p>(Alias)</p></div>
-                    <input type="text">
+                    <input type="text"name="alias">
                     
         
                         <div><p>Under</p></div>
+                       
+      
                         <select name="under" id="under">
-                            <option value="primary">Primary</option> 
-                            
+                            <option value="primary">Primary</option>
+                            {% for g in gps %}
+                             
+                            <option value="{{ g.name }}">{{ g.name }}</option> 
+                            {% endfor %}
                         </select>
+                        
                         <div><p>Should quantities of items be added</p></div>
-                        <select name="sub-ledger" id="sub-ledger">
+                        <select name="qty">
                             <option value="No">No</option> 
                             <option value="Yes">Yes</option>
                           
                         </select>
-                        <div><p>Set/Alter GST Details</p></div>
-                        <select name="gst" id="gst">
-                            <option value="No">No</option> 
-                            <option value="Yes">Yes</option>
-                        </select>
+                        
                             <button type="submit">create</button>
                 </div>
                 

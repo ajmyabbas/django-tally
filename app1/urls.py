@@ -28,4 +28,7 @@ urlpatterns = [
     path('secondarycategory',views.secondarycategory,name='secondarycategory'),
     path('productcategory',views.productcategory,name='productcategory'),
     
+
+
+    path('savestockgroup',views.savestockgroup,name='savestockgroup'),
 ]

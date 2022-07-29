@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from app1.models import CreateStockGrp
 
 # Create your views here.
 
@@ -34,14 +35,40 @@ def vouchpage(request):
 
 
 
+
+
+def savestockgroup(request):
+    if request.method=='POST':
+        gpname=request.POST['name']
+        abr=request.POST['alias']
+        undr=request.POST['under']
+        q=request.POST.get('qty')
+        sg=CreateStockGrp(name=gpname,alias=abr,under_name=undr,quantities=q)
+        sg.save()
+        gps=CreateStockGrp.objects.all()
+        con={
+        'gps':gps,
+        } 
+        return render(request,'groupsummary.html',con)
+
+
 def groupsummary(request):
-    return render(request, 'groupsummary.html')
+    gps=CreateStockGrp.objects.all()
+    con={
+        'gps':gps,
+        } 
+    return render(request,'groupsummary.html',con)
+   
 
 def categorysummary(request):
     return render(request, 'categorysummary.html')
 
 def primarygroups(request):
-    return render(request, 'primarygroups.html')
+    gps=CreateStockGrp.objects.all()
+    con={
+        'gps':gps,
+        } 
+    return render(request, 'primarygroups.html',con)
 
 def primarycategory(request):
     return render(request, 'primarycategory.html')
