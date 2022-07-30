@@ -75,8 +75,9 @@ def primarygrpsummary(request,sk):
     return render(request, 'primarygrpsummary.html',con)  
 
 def secondarygrpsummary(request,sk):
-    gps=StockGroup.objects.filter(id=sk)
-    
+    gps=CreateStockGrp.objects.get(id=sk)
+    gg=StockGroup.objects.get(grp_name=gps.name)
+    gps= CreateStockGrp.objects.filter(group_id=gg.id)
     con={
         'gps':gps,
         } 
