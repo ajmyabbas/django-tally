@@ -1,9 +1,15 @@
 from django.contrib import admin
-from app1.models import CreateStockGrp,CreateStockCateg,stock_item
+from app1.models import CreateStockGrp,CreateStockCateg, StockGroup,stock_item
 # Register your models here.
 @admin.register(CreateStockGrp)
 class stockgrpadmin(admin.ModelAdmin):
-    list_display = ('id','name','alias','under_name','quantities')
+    list_display = ('id','name','alias','quantities','group')
+
+@admin.register(StockGroup)
+class grpadmin(admin.ModelAdmin):
+    list_display = ('id','grp_name')
+min
+
 
 @admin.register(CreateStockCateg)
 class CreateStockCategadmin(admin.ModelAdmin):
@@ -11,5 +17,5 @@ class CreateStockCategadmin(admin.ModelAdmin):
 
 @admin.register(stock_item)
 class stock_itemadmin(admin.ModelAdmin):
-    list_display = ('id','name','alias','under','quantity','rateper','value')      
+    list_display = ('id','name','alias','quantity','rateper','value','group')      
 

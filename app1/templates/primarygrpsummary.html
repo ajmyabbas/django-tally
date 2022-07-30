@@ -67,6 +67,10 @@ td
     background-color:orange;
     color: rgb(15, 14, 14);
 }
+tbody tr:hover td{
+    background-color:orange;
+    color: rgb(15, 14, 14);
+}
     </style>
 
         
@@ -108,25 +112,26 @@ td
         </tr>
     </thead>
     <tbody >
-        <tr>
-            <td colspan="12"style="width:200px;"><a href="secondarysummary"><button  class="btns_prnt" id="primary"><h6>Computer <span style="float: right ;">30,000</span></h6>
+        
+            {% for g in gps %}
+            <tr>
+            <td colspan="12"style="width:200px;text-align:left"><a href="{% url 'secondarygrpsummary' g.group_id %}">{{ g.name }}</a></td>
+            </tr>
+            {% endfor %}
+       
+        <!--<tr>
+            <td colspan="12"style="width:200px;"><a href="secondarysummary"><button  class="btns_prnt" ><h6>Himalaya<span style="float: right ;">30,000</span></h6>
             </button></a></td>
             
             
-        </tr>
-        <tr>
-            <td colspan="12"style="width:200px;"><a href="secondarysummary"><button  class="btns_prnt" id="primary"><h6>Himalaya<span style="float: right ;">30,000</span></h6>
-            </button></a></td>
-            
-            
-        </tr>
+        </tr>-->
     </tbody>
     <tfoot>
         <tr style=" border-top: 1.5px solid rgb(100, 107, 114);">
             <td>Grand Total</td>
             <td></td>
             <td></td>
-            <td>60000.00</td>
+            <td></td>
         </tr>
     </tfoot>
      </table>

@@ -13,7 +13,11 @@
         table,th,td
 {
     border-collapse: collapse;
-  
+    
+}
+th.a{
+    text-align: center;
+    width: 70px;
 }
 table
 {
@@ -22,10 +26,7 @@ table
     background-color:rgba(0,0,0,.4);
 }
 
-th.a{
-    text-align: center;
-    width: 120px;
-}
+
 th
 {
    
@@ -41,7 +42,7 @@ th
    
 }
 
- td
+td
 {
     padding: 8px;
     font-size: 13px;
@@ -68,19 +69,19 @@ tfoot td.b{
     /* padding: 6px; */
 
 }
-tbody tr:hover td{
+.btns_prnt:hover{
     background-color:orange;
     color: rgb(15, 14, 14);
 }
-.btns_prnt:hover{
+tbody tr:hover td{
     background-color:orange;
     color: rgb(15, 14, 14);
 }
     </style>
 
         
-    <div style="margin-left: 100px;margin-right: 100px;margin-top: 100px; background-color:rgba(0,0,0,.4);">
-        <h6 style="color: rgb(0, 0, 65); background-color: rgb(142, 211, 250);padding: 2px; height:3%;">Stock Item Monthly Summary</h6>
+    <div style="margin-left: 100px;margin-right: 100px;margin-top: 100px;background-color:rgba(0,0,0,.4);">
+        <h6 style="color: rgb(0, 0, 65); background-color: rgb(142, 211, 250);padding: 2px; height:3%;">Stock Group Summary</h6>
     <div style=" display:flex; height: 97%;">
     <div style=" width:100%;  height: 100%; ">
        
@@ -103,123 +104,36 @@ tbody tr:hover td{
       <table>
         <thead>
         <tr>
-            <th rowspan="4">Particulars </th>
-            <th colspan="6" class="a" >ABC pvt.ltd<br>For 1-Apr-22</th>
+           <span style="text-align: left;"> <th rowspan="3" >Particulars </th></span>
+            <th colspan="3" class="a">ABC pvt.ltd<br>For 1-Apr-22</th>
         </tr>
 
-    <tr> <th colspan="2"class="a" >Inwards</th>
-        <th colspan="2"class="a" >Outwards</th><th colspan="2"class="a" >Closing Balance</th></tr>
-     <tr><th class="a" >Quantity</th><th class="a">Value</th>
-        <th class="a" >Quantity</th><th class="a">Value</th>
-        <th class="a" >Quantity</th><th class="a">Value</th></tr>   
-         
+    <tr><th colspan="3"class="a">Closing Balance</th></tr>
+        
+         <tr>
+            
+            <th class="a">Quantity</th>
+            <th class="a">Rate</th>
+            <th class="a">Value</th>
+        </tr>
     </thead>
-    <tbody>
+    <tbody >
         <tr>
-            <td><span style="font-style: italic;">Opening Balance</span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>100</td>
-            <td>10,000</td>
-        </tr>
-        <tr>
-            <td ><a href="vouchersummary"><button  class="btns_prnt" id="primary"><h6>April</h6></button></a></td>
+            <td style="width:200px;text-align: left;"><a href="{% url 'prdctmonthlysummary' %}">Mother board </a></td>
             <td>a</td>
             <td>b</td>
             <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td>
-            
         </tr>
-          <tr>  <td ><a href=""><button  class="btns_prnt" id="primary"><h6>May </h6></button></a></td>
-            <td>a</td>
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td>
-            
-        </tr>
-           <tr> <td ><a href=""><button  class="btns_prnt" id="primary"><h6>June </h6></button></a></td>
-            <td>a</td>
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td></tr>
-            <tr><td ><a href=""><button  class="btns_prnt" id="primary"><h6>July </h6></button></a></td><td>a</td>
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td></tr>
-            <tr><td ><a href=""><button  class="btns_prnt" id="primary"><h6>August </h6></button></a></td><td>a</td>
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td></tr>
-            <tr><td ><a href=""><button  class="btns_prnt" id="primary"><h6>September </h6></button></a></td><td>a</td>
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td></tr>
-            <tr><td ><a href=""><button  class="btns_prnt" id="primary"><h6>October</h6></button></a></td><td>a</td>
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td></tr>
-            <tr><td ><a href=""><button  class="btns_prnt" id="primary"><h6>November </h6></button></a></td><td>a</td>
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td></tr>
-            <tr><td ><a href=""><button  class="btns_prnt" id="primary"><h6>December </h6></button></a></td><td>a</td>
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td></tr>
-            <tr><td ><a href=""><button  class="btns_prnt" id="primary"><h6>January </h6></button></a></td><td>a</td>
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td></tr>
-            <tr><td ><a href=""><button  class="btns_prnt" id="primary"><h6>February </h6></button></a></td><td>a</td>
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td></tr>
-            <tr><td ><a href=""><button  class="btns_prnt" id="primary"><h6>March</h6></button></a></td><td>a</td>
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td></tr>
-
-            
+       
     </tbody>
     <tfoot>
         <tr style=" border-top: 1.5px solid rgb(100, 107, 114);">
-            <td class="b">Grand Total</td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
+            <td>Grand Total</td>
+            <td></td>
+            <td></td>
+            <td>60000.00</td>
         </tr>
     </tfoot>
-     </table>
-    </div>
      </table>
     </div>
     

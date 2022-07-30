@@ -16,10 +16,11 @@ urlpatterns = [
     path('vouchpage',views.vouchpage,name='vouchpage'),
 
     path('groupsummary',views.groupsummary,name='groupsummary'),
-    path('primarygroups',views.primarygroups,name='primarygroups'),
-    path('groupsummarypage',views.groupsummarypage,name='groupsummarypage'),
-    path('secondarysummary',views.secondarysummary,name='secondarysummary'),
+    path('creategroups',views.creategroups,name='creategroups'),
+    path('primarygrpsummary/<int:sk>',views.primarygrpsummary,name='primarygrpsummary'),
+    path('secondarygrpsummary/<int:sk>',views.secondarygrpsummary,name='secondarygrpsummary'),
     path('productsummary',views.productsummary,name='productsummary'),
+    path('prdctmonthlysummary',views.prdctmonthlysummary,name='prdctmonthlysummary'),
     path('vouchersummary',views.vouchersummary,name='vouchersummary'),
     
     path('categorysummary',views.categorysummary,name='categorysummary'),
