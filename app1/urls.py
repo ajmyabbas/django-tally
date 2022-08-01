@@ -19,9 +19,9 @@ urlpatterns = [
     path('creategroups',views.creategroups,name='creategroups'),
     path('primarygrpsummary/<int:sk>',views.primarygrpsummary,name='primarygrpsummary'),
     path('secondarygrpsummary/<int:sk>',views.secondarygrpsummary,name='secondarygrpsummary'),
-    path('productsummary',views.productsummary,name='productsummary'),
-    path('prdctmonthlysummary',views.prdctmonthlysummary,name='prdctmonthlysummary'),
-    path('vouchersummary',views.vouchersummary,name='vouchersummary'),
+    path('productsummary/<int:sk>',views.productsummary,name='productsummary'),
+    path('prdctmonthlysummary/<int:sk>',views.prdctmonthlysummary,name='prdctmonthlysummary'),
+    path('vouchsummary/<int:sk>',views.vouchsummary,name='vouchsummary'),
     
     path('categorysummary',views.categorysummary,name='categorysummary'),
     path('primarycategory',views.primarycategory,name='primarycategory'),

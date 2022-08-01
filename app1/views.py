@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
-from app1.models import CreateStockGrp, StockGroup, stock_item
+from app1.models import CreateStockGrp, StockGroup, stock_item,voucherlist
+from django.db.models import Sum
 
 # Create your views here.
 
@@ -37,7 +38,7 @@ def vouchpage(request):
 
 
 def groupsummary(request):
-    gps=StockGroup.objects.all()
+    gps=CreateStockGrp.objects.all()
     con={
         'gps':gps,
         } 
@@ -82,15 +83,32 @@ def secondarygrpsummary(request,sk):
         'gps':gps,
         } 
     return render(request, 'secondarygrpsummary.html',con)  
-def productsummary(request):
-    return render(request, 'productsummary.html')
+def productsummary(request,sk):
+    gps=CreateStockGrp.objects.get(id=sk)
+    gg=StockGroup.objects.get(grp_name=gps.name)
+    si=stock_item.objects.filter(group_id=gg.id)
+    tval=stock_item.objects.filter(group_id=gg.id).aggregate(Sum('value'))
+    con={
+        'si':si,
+        'tval':tval,
+        } 
+    return render(request, 'productsummary.html',con)
 
-def prdctmonthlysummary (request):
-    return render(request, 'prdctmonthlysummary.html')
+def prdctmonthlysummary (request,sk):
+    
+    con={
+        'sk':sk,
+        }
+    return render(request, 'prdctmonthlysummary.html',con)
    
 
-def vouchersummary(request):
-    return render(request, 'vouchersummary.html')
+def vouchsummary(request,sk):
+    v=voucherlist.objects.filter(item_id=sk)
+    con={
+        
+        'v':v,
+        }
+    return render(request, 'vouchersummary.html',con)
 
 
 

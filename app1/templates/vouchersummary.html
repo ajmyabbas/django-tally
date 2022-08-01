@@ -124,25 +124,42 @@ tbody tr:hover td{
     <tbody>
         <tr><td>1-Apr-22</td>
          <td><span style="font-style: italic;">Opening Balance</span></td></tr>
+         {% for vi in v %}
          <tr>
-            <td>1-Apr-22</td>
-            <td>xyz</td>
-            <td>Purchase</td>
-            <td>1</td>
-<td>150</td>
-<td>1500</td>
+            <td>{{ vi.date }}</td>
+            <td>{{ vi.party_name }}</td>
+            <td>{{ vi.vouch_type }}</td>
+            <td>{{ vi.id }}</td>
+{% if vi.vouch_type == 'purchase' %}            
+<td>{{ vi.quantity }}</td>
+<td>{{ vi.value }}</td>
 <td></td>
 <td></td>
+{% else %}
+<td></td>
+<td></td>
+<td>{{ vi.quantity }}</td>
+<td>{{ vi.value }}</td>
+{% endif %}
 <td></td>
 <td></td>
 
          </tr>
+         {% endfor %}
             
     </tbody>
     <tfoot>
         <tr style=" border-top: 1.5px solid rgb(100, 107, 114);">
             <td class="b">Grand Total</td>
-            
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>a</td>
+            <td>b</td>
+            <td>c</td>
+            <td>d</td>
+            <td>e</td>
+            <td>f</td>
         </tr>
     </tfoot>
      </table>

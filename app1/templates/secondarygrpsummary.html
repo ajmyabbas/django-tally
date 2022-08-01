@@ -120,9 +120,9 @@ tbody tr:hover td{
     <tbody >
         {% for g in gps %}
         <tr>
-            <td style="width:200px;text-align: left;"><a href="{% url 'productsummary' %}">{{ g.name }}</a></td>
-            <td>a</td>
-            <td>b</td>
+            <td style="width:200px;text-align: left;"><a href="{% url 'productsummary'  g.id  %}">{{ g.name }}</a></td>
+            <td></td>
+            <td></td>
             <td>c</td>
         </tr>
         {% endfor %}

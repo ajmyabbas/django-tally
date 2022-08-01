@@ -54,9 +54,9 @@
         
       <hr></hr>
       <a href="{% url 'creategroups' %}"><button  class="btns_prnt btn pull-right" id="create"><h6>Create</h6></button></a>
-      
+      <a href="{% url 'primarygrpsummary' '1' %}"><button  class="btns_prnt"style="float: right;" id="primary"><h6>Primary</h6></button></a>
       {% for g in gps %}
-      <a href="{% url 'primarygrpsummary' g.id  %}"><button  class="btns_prnt"style="float: right;" id="primary"><h6>{{ g.grp_name }}</h6></button></a>
+      <a href="{% url 'secondarygrpsummary' g.id %}"><button  class="btns_prnt"style="float: right;" id="primary"><h6>{{ g.name }}</h6></button></a>
       {% endfor %}
 
     </div></div></div>
