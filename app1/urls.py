@@ -21,7 +21,7 @@ urlpatterns = [
     path('secondarygrpsummary/<int:sk>',views.secondarygrpsummary,name='secondarygrpsummary'),
     path('productsummary/<int:sk>',views.productsummary,name='productsummary'),
     path('prdctmonthlysummary/<int:sk>',views.prdctmonthlysummary,name='prdctmonthlysummary'),
-    path('vouchsummary/<int:sk>',views.vouchsummary,name='vouchsummary'),
+    path('vouchsummary/<int:sk>/<int:m>',views.vouchsummary,name='vouchsummary'),
     
     path('categorysummary',views.categorysummary,name='categorysummary'),
     path('primarycategory',views.primarycategory,name='primarycategory'),
