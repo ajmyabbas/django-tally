@@ -17,7 +17,7 @@ class CreateStockCategadmin(admin.ModelAdmin):
 
 @admin.register(stock_item)
 class stock_itemadmin(admin.ModelAdmin):
-    list_display = ('id','name','alias','quantity','rateper','value','group','opening_balance')      
+    list_display = ('id','name','alias','quantity','rateper','value','group')      
 
 @admin.register(voucherlist)
 class voucheradmin(admin.ModelAdmin):

@@ -123,7 +123,7 @@ tbody tr:hover td{
             <td style="width:200px;text-align: left;"><a href="{% url 'prdctmonthlysummary' s.id  %}">{{ s.name }}</a></td>
             <td>{{ s.quantity }}</td>
             <td>{{ s.rateper }}</td>
-            <td>{{ s.value }}</td>
+            <td>{% widthratio s.quantity 1 s.rateper %}</td>
         </tr>
         {% endfor %}
         
@@ -133,7 +133,7 @@ tbody tr:hover td{
             <td>Grand Total</td>
             <td></td>
             <td></td>
-            <td>{{ tval }}</td>
+            <td></td>
         </tr>
     </tfoot>
      </table>
