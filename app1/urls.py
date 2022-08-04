@@ -15,7 +15,8 @@ urlpatterns = [
     path('voucher',views.voucher,name='voucher'),
     path('vouchpage',views.vouchpage,name='vouchpage'),
 
-    path('groupsummary',views.groupsummary,name='groupsummary'),
+    path('catgroupsummary',views.catgroupsummary,name='catgroupsummary'),
+     path('groupsummarypage',views.groupsummarypage,name='groupsummarypage'),
     path('creategroups',views.creategroups,name='creategroups'),
     path('primarygrpsummary/<int:sk>',views.primarygrpsummary,name='primarygrpsummary'),
     path('secondarygrpsummary/<int:sk>',views.secondarygrpsummary,name='secondarygrpsummary'),
@@ -24,12 +25,12 @@ urlpatterns = [
     path('vouchsummary/<int:sk>/<int:m>',views.vouchsummary,name='vouchsummary'),
     
     path('categorysummary',views.categorysummary,name='categorysummary'),
-    path('primarycategory',views.primarycategory,name='primarycategory'),
-    path('categorysummarypage',views.categorysummarypage,name='categorysummarypage'),
-    path('secondarycategory',views.secondarycategory,name='secondarycategory'),
-    path('productcategory',views.productcategory,name='productcategory'),
-    
-
+    path('createcategory',views.createcategory,name='createcategory'),
+    path('primarycatsummary/<int:sk>',views.primarycatsummary,name='primarycatsummary'),
+    path('secondarycatsummary/<int:sk>',views.secondarycatsummary,name='secondarycatsummary'),
+    path('productcatsummary/<int:sk>',views.productcatsummary,name='productcatsummary'),
 
     path('savestockgroup',views.savestockgroup,name='savestockgroup'),
+    path('savestockcategory',views.savestockcategory,name='savestockcategory'),
+
 ]

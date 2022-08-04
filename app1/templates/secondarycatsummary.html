@@ -81,9 +81,9 @@ tbody tr:hover td{
 
         
     <div style="margin-left: 100px;margin-right: 100px;margin-top: 100px;background-color:rgba(0,0,0,.4);">
-        <h6 style="color: rgb(0, 0, 65); background-color: rgb(142, 211, 250);padding: 2px; height:3%;">Stock Category Summary</h6>
+        <h6 style="color: rgb(0, 0, 65); background-color: rgb(142, 211, 250);padding: 2px; height:3%;">Stock Category Summary(secondary)</h6>
     <div style=" display:flex; height: 97%;">
-    <div style="width:100%;  height: 100%; ">
+    <div style=" width:100%;  height: 100%; ">
        
         <!--<div style="display:flex; padding: 25px;">
     
@@ -118,27 +118,21 @@ tbody tr:hover td{
         </tr>
     </thead>
     <tbody >
+        {% for c in cat %}
         <tr>
-            <td style="width:200px;"><a href="productcategory"><button  class="btns_prnt" id="primary"><h6>Computer <span style="float: right ;"></span></h6>
-            </button></a></td>
-            <td>a</td>
-            <td>b</td>
+            <td style="width:200px;text-align: left;"><a href="{% url 'productcatsummary'  c.id  %}">{{ c.name }}</a></td>
+            <td></td>
+            <td></td>
             <td>c</td>
         </tr>
-        <tr>
-            <td style="width:200px;"><a href="productcategory"><button  class="btns_prnt" id="primary"><h6>TV<span style="float: right ;"></span></h6>
-            </button></a></td>
-            <td>d</td>
-            <td>e</td>
-            <td>f</td>
-        </tr>
+        {% endfor %}
     </tbody>
     <tfoot>
         <tr style=" border-top: 1.5px solid rgb(100, 107, 114);">
             <td>Grand Total</td>
             <td></td>
             <td></td>
-            <td>60000.00</td>
+            <td></td>
         </tr>
     </tfoot>
      </table>

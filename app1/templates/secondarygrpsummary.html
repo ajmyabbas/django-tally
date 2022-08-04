@@ -123,14 +123,14 @@ tbody tr:hover td{
             <td style="width:200px;text-align: left;"><a href="{% url 'productsummary'  g.id  %}">{{ g.name }}</a></td>
             <td></td>
             <td></td>
-            <td>c</td>
+            <td></td>
         </tr>
         {% endfor %}
     </tbody>
     <tfoot>
         <tr style=" border-top: 1.5px solid rgb(100, 107, 114);">
             <td>Grand Total</td>
-            <td></td>
+            <td>{{ a }}</td>
             <td></td>
             <td></td>
         </tr>

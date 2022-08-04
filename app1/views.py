@@ -1,8 +1,9 @@
 from unittest import signals
+from webbrowser import get
 from django.db.models.functions import Coalesce
 from django.shortcuts import redirect, render
 from app1 import models
-from app1.models import CreateStockGrp, StockGroup, stock_item,voucherlist
+from app1.models import CreateStockCateg, CreateStockGrp, StockGroup, Stockcategory, stock_item,voucherlist
 from django.db.models import Sum
 
 # Create your views here.
@@ -37,15 +38,28 @@ def voucher(request):
 def vouchpage(request):
     return render(request, 'vouchpage.html')
 
+def groupsummarypage(request):
+    gps=CreateStockGrp.objects.all()
+    con={
+        'gps':gps,
+        } 
+    return render(request,'groupsummarypage.html',con)
 
 
+def catgroupsummary(request):
+    cat=CreateStockCateg.objects.all()
+    con={
+        'cat':cat,
+        } 
+    return render(request,'catgroupsummary.html',con)
 
-def groupsummary(request):
+def categorysummary(request):
     gps=CreateStockGrp.objects.all()
     con={
         'gps':gps,
         } 
     return render(request,'groupsummary.html',con)
+
 
 def creategroups(request):
     gps=StockGroup.objects.all()
@@ -53,6 +67,13 @@ def creategroups(request):
         'gps':gps,
         } 
     return render(request, 'creategroup.html',con)    
+
+def createcategory(request):
+    cat=Stockcategory.objects.all()
+    con={
+        'cat':cat,
+        } 
+    return render(request, 'createcategory.html',con) 
 
 def savestockgroup(request):
     if request.method=='POST':
@@ -63,11 +84,22 @@ def savestockgroup(request):
         grp=request.POST.get('u')
         gp=StockGroup.objects.get(grp_name=grp)
         q=request.POST.get('qty')
-        sg=CreateStockGrp(name=gpname,alias=abr,quantities=q,group=gp)
+        sg=CreateStockGrp(name=gpname,alias=abr,quantities=q,under=grp,group=gp)
         sg.save()
-        return redirect('groupsummary')
+        return redirect('groupsummarypage')
 
-
+def savestockcategory(request):
+    if request.method=='POST':
+        catname=request.POST['name']
+        s=Stockcategory(cat_name=catname)
+        s.save()
+        abr=request.POST['alias']
+        cat=request.POST.get('u')
+        c=Stockcategory.objects.get(cat_name=cat)
+        q=request.POST.get('qty')
+        sc=CreateStockCateg(name=catname,alias=abr,quantities=q,under=cat,category=c)
+        sc.save()
+        return redirect('catgroupsummary')
 
 
 def primarygrpsummary(request,sk):
@@ -78,18 +110,83 @@ def primarygrpsummary(request,sk):
         } 
     return render(request, 'primarygrpsummary.html',con)  
 
+def primarycatsummary(request,sk):
+    cat=CreateStockCateg.objects.filter(category_id=sk)
+    con={
+        'cat':cat,
+        'sk':sk,
+        } 
+    return render(request, 'primarycatsummary.html',con) 
+
 def secondarygrpsummary(request,sk):
     gps=CreateStockGrp.objects.get(id=sk)
     gg=StockGroup.objects.get(grp_name=gps.name)
     gps= CreateStockGrp.objects.filter(group_id=gg.id)
+    for g in gps:
+       si=stock_item.objects.filter(group_id=g.id)
+       ttpq=0
+       ttsq=0
+       r=0
+       a=0
+       y=0
+       for s in si:
+            w=s.rateper 
+            tpq=voucherlist.objects.filter(item_id=s.id,vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
+            ttpq=tpq+ttpq
+            tsq=voucherlist.objects.filter(item_id=s.id,vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
+            ttsq=tsq+ttsq
+            ttq=tpq-tsq
+            s.qy=ttq
+            s.value=ttq * w
+            a=a+s.value
+            y=y+w
+       q=ttpq-ttsq  
     con={
-        'gps':gps,
+        'gps':gps,'a':a
         } 
-    return render(request, 'secondarygrpsummary.html',con)  
+    return render(request, 'secondarygrpsummary.html',con) 
+
+def secondarycatsummary(request,sk):
+    cat=CreateStockCateg.objects.get(id=sk)
+    cc=Stockcategory.objects.get(cat_name=cat.name)
+    cat= CreateStockCateg.objects.filter(category_id=cc.id)
+    con={
+        'cat':cat,
+        } 
+    return render(request, 'secondarycatsummary.html',con)    
+
 def productsummary(request,sk):
     gps=CreateStockGrp.objects.get(id=sk)
     gg=StockGroup.objects.get(grp_name=gps.name)
     si=stock_item.objects.filter(group_id=gg.id)
+    ttpq=0
+    ttsq=0
+    r=0
+    a=0
+    y=0
+    for s in si:
+        w=s.rateper
+        
+        tpq=voucherlist.objects.filter(item_id=s.id,vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
+        ttpq=tpq+ttpq
+        tsq=voucherlist.objects.filter(item_id=s.id,vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
+        ttsq=tsq+ttsq
+        ttq=tpq-tsq
+        s.qy=ttq
+        s.value=ttq * w
+        a=a+s.value
+        y=y+w
+    q=ttpq-ttsq   
+    con={
+        'si':si,'ttpq':ttpq,'q':q,'ttpq':ttq,'w':w,'a':a,'y':y
+        } 
+    return render(request, 'productsummary.html',con)
+
+
+def productcatsummary(request,sk):
+    cat=CreateStockCateg.objects.get(id=sk)
+    cc=Stockcategory.objects.get(cat_name=cat.name)
+    si=stock_item.objects.filter(category_id=cc.id)
     for s in si:
         tpq=voucherlist.objects.filter(item_id=s.id,vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         
@@ -103,11 +200,11 @@ def productsummary(request,sk):
     con={
         'si':si,
         } 
-    return render(request, 'productsummary.html',con)
+    return render(request, 'productcatsummary.html',con)    
 
 def prdctmonthlysummary(request,sk):
     si=stock_item.objects.get(id=sk)
-    
+
     tpq=voucherlist.objects.filter(item_id=si.id,vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
     tpv=voucherlist.objects.filter(item_id=si.id,vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
     tsq=voucherlist.objects.filter(item_id=si.id,vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']

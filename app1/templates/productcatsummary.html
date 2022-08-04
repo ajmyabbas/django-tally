@@ -46,7 +46,13 @@ td
 {
     padding: 8px;
     font-size: 13px;
+    text-align: center;
  
+}
+tfoot td.b{
+    padding: 8px;
+    font-size: 13px;
+    text-align: left;
 }
 .btns{
     color: black;
@@ -64,6 +70,10 @@ td
 
 }
 .btns_prnt:hover{
+    background-color:orange;
+    color: rgb(15, 14, 14);
+}
+tbody tr:hover td{
     background-color:orange;
     color: rgb(15, 14, 14);
 }
@@ -108,25 +118,22 @@ td
         </tr>
     </thead>
     <tbody >
+        {% for s in si %}
         <tr>
-            <td colspan="12"style="width:200px;"><a href="secondarycategory"><button  class="btns_prnt" id="primary"><h6>Electronics <span style="float: right ;">30,000</span></h6>
-            </button></a></td>
-            
-            
+            <td style="width:200px;text-align: left;"><a href="">{{ s.name }}</a></td>
+            <td>{{ s.quantity }}</td>
+            <td>{{ s.rateper }}</td>
+            <td>{% widthratio s.quantity 1 s.rateper %}</td>
         </tr>
-        <tr>
-            <td colspan="12"style="width:200px;"><a href="secondarycategory"><button  class="btns_prnt" id="primary"><h6>Cosmetics<span style="float: right ;">30,000</span></h6>
-            </button></a></td>
-            
-            
-        </tr>
+        {% endfor %}
+        
     </tbody>
     <tfoot>
         <tr style=" border-top: 1.5px solid rgb(100, 107, 114);">
             <td>Grand Total</td>
             <td></td>
             <td></td>
-            <td>60000.00</td>
+            <td></td>
         </tr>
     </tfoot>
      </table>
