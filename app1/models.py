@@ -16,14 +16,14 @@ class CreateStockGrp(models.Model):
     name=models.CharField(max_length=100)
     alias=models.CharField(max_length=100)
     under=models.CharField(max_length=100,null=True)
-    quantities=models.IntegerField()
+    quantities=models.CharField(max_length=100,null=True)
     group = models.ForeignKey(StockGroup,on_delete=models.SET_NULL, null=True)
     
 class CreateStockCateg(models.Model):
     name=models.CharField(max_length=100)
     alias=models.CharField(max_length=100)
     under=models.CharField(max_length=50)
-    quantities=models.IntegerField()
+    quantities=models.CharField(max_length=100,null=True)
     category = models.ForeignKey(Stockcategory,on_delete=models.SET_NULL, null=True)
 
 class stock_item(models.Model):
@@ -31,7 +31,7 @@ class stock_item(models.Model):
     alias=models.CharField(max_length=100,null=True)
     quantity=models.IntegerField(null=True)
     rateper=models.IntegerField(null=True)
-    value=models.CharField(max_length=100,null=True)    
+    value=models.IntegerField(null=True)    
     group = models.ForeignKey(StockGroup,on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Stockcategory,on_delete=models.SET_NULL, null=True)
 

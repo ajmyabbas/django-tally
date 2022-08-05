@@ -118,21 +118,26 @@ tbody tr:hover td{
         </tr>
     </thead>
     <tbody >
+        
         {% for g in gps %}
+        
         <tr>
             <td style="width:200px;text-align: left;"><a href="{% url 'productsummary'  g.id  %}">{{ g.name }}</a></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ g.q }}</td>
+            <td>{{ g.y }}</td>
+            
+            <td>{{ g.i }}</td>
+          
         </tr>
+        
         {% endfor %}
     </tbody>
     <tfoot>
         <tr style=" border-top: 1.5px solid rgb(100, 107, 114);">
             <td>Grand Total</td>
-            <td>{{ a }}</td>
             <td></td>
             <td></td>
+            <td>{{ h }}</td>
         </tr>
     </tfoot>
      </table>

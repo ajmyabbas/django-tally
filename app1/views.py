@@ -104,9 +104,53 @@ def savestockcategory(request):
 
 def primarygrpsummary(request,sk):
     gps=CreateStockGrp.objects.filter(group_id=sk)
+    gt=0
+    for g in gps:
+        gg=StockGroup.objects.get(grp_name=g.name)
+        gpsi= CreateStockGrp.objects.filter(group_id=gg.id)
+        l=[]
+        i=0
+        h=0
+        for gi in gpsi:
+           gg=StockGroup.objects.get(grp_name=gi.name)
+           si=stock_item.objects.filter(group_id=gg.id)
+           ttpq=0
+           ttsq=0
+           r=0
+           a=0
+           y=0
+      
+           for s in si:
+               w=s.rateper 
+               oqty=s.quantity
+               val=s.value
+               tpq=voucherlist.objects.filter(item_id=s.id,vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
+               tpq=tpq+oqty
+               ttpq=tpq+ttpq
+               tsq=voucherlist.objects.filter(item_id=s.id,vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
+               ttsq=tsq+ttsq
+               ttq=tpq-tsq
+               s.qy=ttq
+               s.value=ttq * w
+               a=a+s.value
+               y=y+w
+           gi.q=ttpq-ttsq 
+           gi.i=a
+           h=h+gi.i
+           gi.y=y
+           i=i+1 
+           gi.h=h   
+           g.h=h
+        gt=gt+g.h   
+            
+
+
+
     con={
+        'gpsi':gpsi,
         'gps':gps,
         'sk':sk,
+        'gt':gt
         } 
     return render(request, 'primarygrpsummary.html',con)  
 
@@ -122,16 +166,24 @@ def secondarygrpsummary(request,sk):
     gps=CreateStockGrp.objects.get(id=sk)
     gg=StockGroup.objects.get(grp_name=gps.name)
     gps= CreateStockGrp.objects.filter(group_id=gg.id)
+    l=[]
+    i=0
+    h=0
     for g in gps:
-       si=stock_item.objects.filter(group_id=g.id)
-       ttpq=0
-       ttsq=0
-       r=0
-       a=0
-       y=0
-       for s in si:
+      gg=StockGroup.objects.get(grp_name=g.name)
+      si=stock_item.objects.filter(group_id=gg.id)
+      ttpq=0
+      ttsq=0
+      r=0
+      a=0
+      y=0
+      
+      for s in si:
             w=s.rateper 
+            oqty=s.quantity
+            val=s.value
             tpq=voucherlist.objects.filter(item_id=s.id,vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
+            tpq=tpq+oqty
             ttpq=tpq+ttpq
             tsq=voucherlist.objects.filter(item_id=s.id,vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
             ttsq=tsq+ttsq
@@ -140,9 +192,13 @@ def secondarygrpsummary(request,sk):
             s.value=ttq * w
             a=a+s.value
             y=y+w
-       q=ttpq-ttsq  
+      g.q=ttpq-ttsq 
+      g.i=a
+      h=h+g.i
+      g.y=y
+      i=i+1 
     con={
-        'gps':gps,'a':a
+        'gps':gps,'a':a,'y':y,'gps':gps,'l':l,'h':h
         } 
     return render(request, 'secondarygrpsummary.html',con) 
 
@@ -166,8 +222,10 @@ def productsummary(request,sk):
     y=0
     for s in si:
         w=s.rateper
-        
+        qty=s.quantity
+        val=s.value
         tpq=voucherlist.objects.filter(item_id=s.id,vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
+        tpq=tpq+qty
         ttpq=tpq+ttpq
         tsq=voucherlist.objects.filter(item_id=s.id,vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         ttsq=tsq+ttsq
@@ -176,6 +234,8 @@ def productsummary(request,sk):
         s.value=ttq * w
         a=a+s.value
         y=y+w
+    
+    
     q=ttpq-ttsq   
     con={
         'si':si,'ttpq':ttpq,'q':q,'ttpq':ttq,'w':w,'a':a,'y':y
@@ -204,18 +264,26 @@ def productcatsummary(request,sk):
 
 def prdctmonthlysummary(request,sk):
     si=stock_item.objects.get(id=sk)
-
+    rate=si.rateper
+    qty=si.quantity
+    val=si.value
     tpq=voucherlist.objects.filter(item_id=si.id,vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
+    tpq=tpq+qty
     tpv=voucherlist.objects.filter(item_id=si.id,vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
+    tpv=tpv+val
     tsq=voucherlist.objects.filter(item_id=si.id,vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
     tsv=voucherlist.objects.filter(item_id=si.id,vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
     ttq=tpq-tsq
     rate=si.rateper
+    qty=si.quantity
+    val=si.value
     
     a=voucherlist.objects.filter(item_id=si.id,date__gte='2022-04-01',date__lte='2022-04-30',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
     b=voucherlist.objects.filter(item_id=si.id,date__gte='2022-04-01',date__lte='2022-04-30',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
     c=voucherlist.objects.filter(item_id=si.id,date__gte='2022-04-01',date__lte='2022-04-30',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
     d=voucherlist.objects.filter(item_id=si.id,date__gte='2022-04-01',date__lte='2022-04-30',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+    a=a+qty
+    b=b+val
     aa=a-c
     
 
@@ -303,13 +371,16 @@ def prdctmonthlysummary(request,sk):
         'b1':b1,'c1':c1,'d1':d1,'e1':e1,'f1':f1,'g1':g1,'h1':h1,'i1':i1,'j1':j1,'k1':k1,'l1':l1,'m1':m1,'n1':n1,'o1':o1,'p1':p1,'q1':q1,'r1':r1,'s1':s1,'t1':t1,'u1':u1,'v1':v1
         
         ,'aa':aa,'cc':cc,'ee':ee,'gg':gg,'ii':ii,'kk':kk,'mm':mm,'oo':oo,'qq':qq,'ss':ss,'uu':uu,'ww':ww,
-        'tpq':tpq,'tsq':tsq,'tpv':tpv,'tsv':tsv,'ttq':ttq,'rate':rate}
+        'tpq':tpq,'tsq':tsq,'tpv':tpv,'tsv':tsv,'ttq':ttq,'rate':rate
+        ,'qty':qty,'val':val}
     return render(request, 'prdctmonthlysummary.html',con)
    
 
 def vouchsummary(request,sk,m):
     si=stock_item.objects.get(id=sk)
     rate=si.rateper
+    qty=si.quantity
+    val=si.value
     
     if m==4:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-04-01',date__lte='2022-04-30')
@@ -317,97 +388,133 @@ def vouchsummary(request,sk,m):
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-04-01',date__lte='2022-04-30',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-04-01',date__lte='2022-04-30',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-04-01',date__lte='2022-04-30',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
         f=rate
+        fr=e*f
+
     if m==5:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-05-01',date__lte='2022-05-31')
         a=voucherlist.objects.filter(item_id=sk,date__gte='2022-05-01',date__lte='2022-05-31',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-05-01',date__lte='2022-05-31',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-05-01',date__lte='2022-05-31',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-05-01',date__lte='2022-05-31',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
         f=rate
-        
+        fr=e*f
     if m==6:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-06-01',date__lte='2022-06-30')
         a=voucherlist.objects.filter(item_id=sk,date__gte='2022-06-01',date__lte='2022-06-30',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-06-01',date__lte='2022-06-30',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-06-01',date__lte='2022-06-30',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-06-01',date__lte='2022-06-30',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
         f=rate
+        fr=e*f
     if m==7:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-07-01',date__lte='2022-07-31')
         a=voucherlist.objects.filter(item_id=sk,date__gte='2022-07-01',date__lte='2022-07-31',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-07-01',date__lte='2022-07-31',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-07-01',date__lte='2022-07-31',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-07-01',date__lte='2022-07-31',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
         f=rate
+        fr=e*f
     if m==8:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-08-01',date__lte='2022-08-31')
         a=voucherlist.objects.filter(item_id=sk,date__gte='2022-08-01',date__lte='2022-08-31',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-08-01',date__lte='2022-08-31',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-08-01',date__lte='2022-08-31',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-08-01',date__lte='2022-08-31',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
         f=rate
+        fr=e*f
     if m==9:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-09-01',date__lte='2022-09-30')
         a=voucherlist.objects.filter(item_id=sk,date__gte='2022-09-01',date__lte='2022-09-30',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-09-01',date__lte='2022-09-30',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-09-01',date__lte='2022-09-30',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-09-01',date__lte='2022-09-30',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
         f=rate
+        fr=e*f
     if m==10:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-10-01',date__lte='2022-10-31')
         a=voucherlist.objects.filter(item_id=sk,date__gte='2022-10-01',date__lte='2022-10-31',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-10-01',date__lte='2022-10-31',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-10-01',date__lte='2022-10-31',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-10-01',date__lte='2022-10-31',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
         f=rate
+        fr=e*f
     if m==11:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-11-01',date__lte='2022-11-30')
         a=voucherlist.objects.filter(item_id=sk,date__gte='2022-11-01',date__lte='2022-11-30',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-11-01',date__lte='2022-11-30',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-11-01',date__lte='2022-11-30',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-11-01',date__lte='2022-11-30',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
         f=rate
+        fr=e*f
     if m==12:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-12-01',date__lte='2022-12-31')
         a=voucherlist.objects.filter(item_id=sk,date__gte='2022-12-01',date__lte='2022-12-31',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-12-01',date__lte='2022-12-31',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-12-01',date__lte='2022-12-31',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-12-01',date__lte='2022-12-31',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
         f=rate
+        fr=e*f
     if m==1:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-01-01',date__lte='2022-01-31')
         a=voucherlist.objects.filter(item_id=sk,date__gte='2022-01-01',date__lte='2022-01-31',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-01-01',date__lte='2022-01-31',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-01-01',date__lte='2022-01-31',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-01-01',date__lte='2022-01-31',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
         f=rate
+        fr=e*f
     if m==2:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-02-01',date__lte='2022-02-28')
         a=voucherlist.objects.filter(item_id=sk,date__gte='2022-02-01',date__lte='2022-02-28',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-02-01',date__lte='2022-02-28',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-02-01',date__lte='2022-02-28',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-02-01',date__lte='2022-02-28',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
         f=rate
+        fr=e*f
     if m==3:
         v=voucherlist.objects.filter(item_id=sk,date__gte='2022-03-01',date__lte='2022-03-31')
         a=voucherlist.objects.filter(item_id=sk,date__gte='2022-03-01',date__lte='2022-03-31',vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         b=voucherlist.objects.filter(item_id=sk,date__gte='2022-03-01',date__lte='2022-03-31',vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
         c=voucherlist.objects.filter(item_id=sk,date__gte='2022-03-01',date__lte='2022-03-31',vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
         d=voucherlist.objects.filter(item_id=sk,date__gte='2022-03-01',date__lte='2022-03-31',vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
+        a=a+qty
+        b=b+val
         e=a-c
-        f=rate                        
+        f=rate
+        fr=e*f                        
     
     con={
         'v':v,
@@ -418,7 +525,10 @@ def vouchsummary(request,sk,m):
         'c':c,
         'd':d,
         'e':e,
-        'f':f
+        'f':f,
+        'qty':qty,
+        'val':val,
+        'fr':fr     
         }
     return render(request, 'vouchersummary.html',con)
 

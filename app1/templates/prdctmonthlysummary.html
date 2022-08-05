@@ -101,7 +101,7 @@ tbody tr:hover td{
         
           </div>
           </div>-->
-      <hr></hr>
+      <hr>Stock Item::{{ si.name }} </hr>
       
 
       <table>
@@ -125,8 +125,8 @@ tbody tr:hover td{
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ qty }}</td>
+            <td>{{ val }}</td>
         </tr>
         <tr>
             <td style="text-align: left;"><a href="{% url 'vouchsummary' si.id '4' %}"><h6>April</h6></a></td>

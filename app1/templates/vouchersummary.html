@@ -83,7 +83,7 @@ tbody tr:hover td{
     </style>
 
         
-    <div style="margin-left: 100px;margin-right: 100px;margin-top: 100px;background-color:rgba(0,0,0,.4);">
+    <div class="container" style="margin-left: 100px;margin-right: 100px;margin-top: 100px;background-color:rgba(0,0,0,.4);">
         <h6 style="color: rgb(0, 0, 65); background-color: rgb(142, 211, 250);padding: 2px; height:3%;">Stock Item Vouchers<span style="margin-left: 400px;">ABC pvt.ltd</span></h6>
     <div style=" display:flex; height: 97%;">
     <div style="width:100%;  height: 100%; ">
@@ -149,7 +149,14 @@ tbody tr:hover td{
             {% elif m == 2 %}
             <td>February</td>
             {% endif %}
-         <td><span style="font-style: italic;">Opening Balance</span></td></tr>
+         <td><span style="font-style: italic;">Opening Balance</span></td><td></td><td></td>
+        <td></td>
+    <td>{{ qty }}</td>
+<td>{{ val }}</td>
+<td></td>
+<td></td>
+<td>{{ qty }}</td>
+<td>{{ val }}</td></tr>
          {% for vi in v %}
          <tr>
             <td>{{ vi.date }}</td>
@@ -185,7 +192,7 @@ tbody tr:hover td{
             <td>{{ c }}</td>
             <td>{{ d }}</td>
             <td>{{ e }}</td>
-            <td>{% widthratio e 1 f %}</td>
+            <td>{{ fr }}</td>
         </tr>
     </tfoot>
      </table>
