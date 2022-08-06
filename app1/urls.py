@@ -28,7 +28,8 @@ urlpatterns = [
     path('createcategory',views.createcategory,name='createcategory'),
     path('primarycatsummary/<int:sk>',views.primarycatsummary,name='primarycatsummary'),
     path('secondarycatsummary/<int:sk>',views.secondarycatsummary,name='secondarycatsummary'),
-    path('productcatsummary/<int:sk>',views.productcatsummary,name='productcatsummary'),
+    path('prcatsummary/<int:sk>',views.prcatsummary,name='prcatsummary'),
+    path('productcatmonthlysummary/<int:sk>',views.productcatmonthlysummary,name='productcatmonthlysummary'),
 
     path('savestockgroup',views.savestockgroup,name='savestockgroup'),
     path('savestockcategory',views.savestockcategory,name='savestockcategory'),

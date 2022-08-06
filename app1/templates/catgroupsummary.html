@@ -59,7 +59,7 @@
       {% if c.under == 'primary' %}
       <a href="{% url 'secondarycatsummary' c.id %}"><button  class="btns_prnt"style="float: right;" id="primary"><h6>{{ c.name }}</h6></button></a>
       {% else %}
-      <a href="{% url 'productcatsummary' c.id %}"><button  class="btns_prnt"style="float: right;" id="primary"><h6>{{ c.name }}</h6></button></a>
+      <a href="{% url 'prcatsummary' c.id %}"><button  class="btns_prnt"style="float: right;" id="primary"><h6>{{ c.name }}</h6></button></a>
       {% endif %}
       {% endfor %}
 
