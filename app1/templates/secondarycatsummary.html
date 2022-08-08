@@ -121,9 +121,10 @@ tbody tr:hover td{
         {% for c in cat %}
         <tr>
             <td style="width:200px;text-align: left;"><a href="{% url 'prcatsummary'  c.id  %}">{{ c.name }}</a></td>
-            <td></td>
-            <td></td>
-            <td>c</td>
+            <td>{{ c.q }}</td>
+            <td>{{ c.y }}</td>
+            
+            <td>{{ c.i }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -132,7 +133,7 @@ tbody tr:hover td{
             <td>Grand Total</td>
             <td></td>
             <td></td>
-            <td></td>
+            <td>{{ h }}</td>
         </tr>
     </tfoot>
      </table>

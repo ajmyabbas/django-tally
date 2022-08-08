@@ -250,10 +250,42 @@ def secondarycatsummary(request,sk):
     cat=CreateStockCateg.objects.get(id=sk)
     cc=Stockcategory.objects.get(cat_name=cat.name)
     cat= CreateStockCateg.objects.filter(category_id=cc.id)
+    l=[]
+    i=0
+    h=0
+    for c in cat:
+      cc=Stockcategory.objects.get(cat_name=c.name)
+      si=stock_item.objects.filter(category_id=cc.id)
+      ttpq=0
+      ttsq=0
+      r=0
+      a=0
+      y=0
+      
+      for s in si:
+            w=s.rateper 
+            oqty=s.quantity
+            val=s.value
+            tpq=voucherlist.objects.filter(item_id=s.id,vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
+            tpq=tpq+oqty
+            ttpq=tpq+ttpq
+            tsq=voucherlist.objects.filter(item_id=s.id,vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
+            ttsq=tsq+ttsq
+            ttq=tpq-tsq
+            s.qy=ttq
+            s.value=ttq * w
+            a=a+s.value
+            y=y+w
+      c.q=ttpq-ttsq 
+      c.i=a
+      h=h+c.i
+      c.y=y
+      i=i+1 
     con={
-        'cat':cat,
+        'cat':cat,'a':a,'y':y,'l':l,'h':h
         } 
-    return render(request, 'secondarycatsummary.html',con)    
+    return render(request, 'secondarycatsummary.html',con) 
+    
 
 def productsummary(request,sk):
     gps=CreateStockGrp.objects.get(id=sk)
