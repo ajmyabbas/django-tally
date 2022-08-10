@@ -125,7 +125,17 @@ tbody tr:hover td{
          
     </thead>
     <tbody>
-        <tr>
+        <tr><td><span style="font-style: italic;">Opening Balance</span></td>
+            <td></td>
+         <td></td>  <td></td>
+        
+    <td>{{ qty }}</td>
+<td>{{ val }}</td>
+<td></td>
+        <td></td>
+
+<td>{{ qty }}</td>
+<td>{{ val }}</td></tr>
             {% if m == 4 %}
             <td>April</td>
             {% elif m == 5 %}
@@ -149,15 +159,6 @@ tbody tr:hover td{
             {% elif m == 2 %}
             <td>February</td>
             {% endif %}
-         <td><span style="font-style: italic;">Opening Balance</span></td><td></td><td></td>
-        
-    <td>{{ qty }}</td>
-<td>{{ val }}</td>
-<td></td>
-        <td></td>
-
-<td>{{ qty }}</td>
-<td>{{ val }}</td></tr>
          {% for vi in v %}
          <tr>
             <td>{{ vi.date }}</td>
@@ -169,14 +170,17 @@ tbody tr:hover td{
 <td>{{ vi.value }}</td>
 <td></td>
 <td></td>
+<td></td>
+<td></td>
 {% else %}
 <td></td>
 <td></td>
 <td>{{ vi.quantity }}</td>
 <td>{{ vi.value }}</td>
+<td></td>
+<td></td>
 {% endif %}
-<td></td>
-<td></td>
+
 
          </tr>
          {% endfor %}
@@ -192,7 +196,7 @@ tbody tr:hover td{
             <td>{{ b }}</td>
             <td>{{ c }}</td>
             <td>{{ d }}</td>
-            <td>{{ e }}</td>
+            <td>{{ tq }}</td>
             <td>{{ fr }}</td>
         </tr>
     </tfoot>
