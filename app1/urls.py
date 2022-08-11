@@ -23,6 +23,7 @@ urlpatterns = [
     path('productsummary/<int:sk>',views.productsummary,name='productsummary'),
     path('prdctmonthlysummary/<int:sk>',views.prdctmonthlysummary,name='prdctmonthlysummary'),
     path('vouchsummary/<int:sk>/<int:m>/<int:n>',views.vouchsummary,name='vouchsummary'),
+     path('periodvouchsummary/<int:sk>/<int:m>/<int:n>',views.periodvouchsummary,name='periodvouchsummary'),
     
     path('categorysummary',views.categorysummary,name='categorysummary'),
     path('createcategory',views.createcategory,name='createcategory'),
@@ -33,5 +34,7 @@ urlpatterns = [
 
     path('savestockgroup',views.savestockgroup,name='savestockgroup'),
     path('savestockcategory',views.savestockcategory,name='savestockcategory'),
+
+    
 
 ]
