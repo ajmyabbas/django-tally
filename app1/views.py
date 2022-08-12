@@ -6,7 +6,7 @@ from webbrowser import get
 from django.db.models.functions import Coalesce
 from django.shortcuts import redirect, render
 from app1 import models
-from app1.models import CreateStockCateg, CreateStockGrp, StockGroup, Stockcategory, stock_item,voucherlist
+from app1.models import CreateStockCateg, CreateStockGrp, StockGroup, Stockcategory, company, stock_item,voucherlist
 from django.db.models import Sum
 
 # Create your views here.
@@ -106,6 +106,7 @@ def savestockcategory(request):
 
 
 def primarygrpsummary(request,sk):
+    cmp=company.objects.get(id='1')
     gps=CreateStockGrp.objects.filter(group_id=sk)
     gt=0
     for g in gps:
@@ -153,11 +154,13 @@ def primarygrpsummary(request,sk):
         'gpsi':gpsi,
         'gps':gps,
         'sk':sk,
-        'gt':gt
+        'gt':gt,
+        'cmp':cmp
         } 
     return render(request, 'primarygrpsummary.html',con)  
 
 def primarycatsummary(request,sk):
+    cmp=company.objects.get(id='1')
     cat=CreateStockCateg.objects.filter(category_id=sk)
     gt=0
     for c in cat:
@@ -205,11 +208,13 @@ def primarycatsummary(request,sk):
         'cgsi':cgsi,
         'cat':cat,
         'sk':sk,
-        'gt':gt
+        'gt':gt,
+        'cmp':cmp
         } 
     return render(request, 'primarycatsummary.html',con)
 
 def secondarygrpsummary(request,sk):
+    cmp=company.objects.get(id='1')
     gps=CreateStockGrp.objects.get(id=sk)
     gg=StockGroup.objects.get(grp_name=gps.name)
     gps= CreateStockGrp.objects.filter(group_id=gg.id)
@@ -245,12 +250,13 @@ def secondarygrpsummary(request,sk):
       g.y=y
       i=i+1 
     con={
-        'gps':gps,'a':a,'y':y,'gps':gps,'l':l,'h':h
+        'gps':gps,'a':a,'y':y,'gps':gps,'l':l,'h':h,'cmp':cmp
         } 
     return render(request, 'secondarygrpsummary.html',con) 
 
 def secondarycatsummary(request,sk):
     cat=CreateStockCateg.objects.get(id=sk)
+    cmp=company.objects.get(id='1')
     cc=Stockcategory.objects.get(cat_name=cat.name)
     cat= CreateStockCateg.objects.filter(category_id=cc.id)
     l=[]
@@ -285,13 +291,14 @@ def secondarycatsummary(request,sk):
       c.y=y
       i=i+1 
     con={
-        'cat':cat,'a':a,'y':y,'l':l,'h':h
+        'cat':cat,'a':a,'y':y,'l':l,'h':h,'cmp':cmp
         } 
     return render(request, 'secondarycatsummary.html',con) 
     
 
 def productsummary(request,sk):
     gps=CreateStockGrp.objects.get(id=sk)
+    cmp=company.objects.get(id='1')
     gg=StockGroup.objects.get(grp_name=gps.name)
     si=stock_item.objects.filter(group_id=gg.id)
     ttpq=0
@@ -317,12 +324,13 @@ def productsummary(request,sk):
     
     q=ttpq-ttsq   
     con={
-        'si':si,'ttpq':ttpq,'q':q,'ttpq':ttq,'w':w,'a':a,'y':y
+        'si':si,'ttpq':ttpq,'q':q,'ttpq':ttq,'w':w,'a':a,'y':y,'cmp':cmp
         } 
     return render(request, 'productsummary.html',con)
 
 
 def prcatsummary(request,sk):
+    cmp=company.objects.get(id='1')
     cat=CreateStockCateg.objects.get(id=sk)
     cc=Stockcategory.objects.get(cat_name=cat.name)
     si=stock_item.objects.filter(category_id=cc.id)
@@ -349,22 +357,23 @@ def prcatsummary(request,sk):
     
     q=ttpq-ttsq   
     con={
-        'si':si,'ttpq':ttpq,'q':q,'ttpq':ttq,'w':w,'a':a,'y':y
+        'si':si,'ttpq':ttpq,'q':q,'ttpq':ttq,'w':w,'a':a,'y':y,'cmp':cmp
         } 
     return render(request, 'productcatsummary.html',con) 
 
 def prdctmonthlysummary(request,sk):
+    cmp=company.objects.get(id='1')
     si=stock_item.objects.get(id=sk)
     rate=si.rateper
     qty=si.quantity
     val=si.value
     tpq=voucherlist.objects.filter(item_id=si.id,vouch_type='purchase').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
-    tpq=tpq+qty
+    tpqo=tpq+qty
     tpv=voucherlist.objects.filter(item_id=si.id,vouch_type='purchase').aggregate(value=Coalesce(Sum('value'),0))['value']
-    tpv=tpv+val
+    
     tsq=voucherlist.objects.filter(item_id=si.id,vouch_type='sale').aggregate(quantity=Coalesce(Sum('quantity'),0))['quantity']
     tsv=voucherlist.objects.filter(item_id=si.id,vouch_type='sale').aggregate(value=Coalesce(Sum('value'),0))['value']
-    ttq=tpq-tsq
+    ttq=tpqo-tsq
     rate=si.rateper
     qty=si.quantity
     val=si.value
@@ -513,7 +522,7 @@ def prdctmonthlysummary(request,sk):
     
     
     con={
-        'si':si,
+        'si':si,'cmp':cmp,
         'a':a,'b':b,'c':c,'d':d,'e':e,'f':f,'g':g,'h':h,'i':i,'j':j,'k':k,'l':l,'m':m,'n':n,'o':o,'p':p,'q':q,'r':r,'s':s,'t':t,'u':u,'v':v,'w':w,'x':x,'y':y,'z':z ,'a1':a1,
         'b1':b1,'c1':c1,'d1':d1,'e1':e1,'f1':f1,'g1':g1,'h1':h1,'i1':i1,'j1':j1,'k1':k1,'l1':l1,'m1':m1,'n1':n1,'o1':o1,'p1':p1,'q1':q1,'r1':r1,'s1':s1,'t1':t1,'u1':u1,'v1':v1,
         
@@ -644,6 +653,7 @@ def productcatmonthlysummary(request,sk):
 
 
 def vouchsummary(request,sk,m,n):
+    cmp=company.objects.get(id='1')
     si=stock_item.objects.get(id=sk)
     rate=si.rateper
     
@@ -916,7 +926,7 @@ def vouchsummary(request,sk,m,n):
         'qty':qty,
         'val':val,
         'fr':fr ,'tq':tq ,'n':n,
-        'si':si   
+        'si':si,'cmp':cmp  
         }
     return render(request, 'vouchersummary.html',con)
 
@@ -924,6 +934,7 @@ def vouchsummary(request,sk,m,n):
 
 
 def periodvouchsummary(request,sk,m,n):
+    cmp=company.objects.get(id='1')
     si=stock_item.objects.get(id=sk)
     rate=si.rateper
     st=request.POST.get('start')
@@ -1197,7 +1208,7 @@ def periodvouchsummary(request,sk,m,n):
         'qty':qty,
         'val':val,
         'fr':fr ,'tq':tq ,'n':n,
-        'si':si   
+        'si':si,'cmp':cmp  
         }
     return render(request, 'periodvouchersummary.html',con)
 

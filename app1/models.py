@@ -48,3 +48,7 @@ class voucherlist(models.Model):
     value=models.IntegerField() 
     group = models.ForeignKey(StockGroup,on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Stockcategory,on_delete=models.SET_NULL, null=True)
+
+class company(models.Model):
+    comp_name=models.CharField(max_length=100,null=True)
+    start_date=models.DateField()    
