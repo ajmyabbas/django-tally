@@ -27,7 +27,7 @@
                     align-items: center;
                     justify-content: center;
                     border: none;
-                    width:30%;
+                   
                     position: absolute;
                 }
                 form{
@@ -84,12 +84,31 @@
         .close:hover{
             color: yellow;
         }
-                </style>
-        
-        </head>
-        <body>
+        @media (max-width: 991px) {
+  .main-panel {
+      margin-left: 0;
+      width: 100%;
+  }
+}
+
+.content-wrapper {
+
+  padding: 1.875rem 1.75rem;
+  width: 100%;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+}
+    </style>
+</head>
+<body>
+    <div class="main-panel">
+        <div class="content-wrapper">
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-9 ">
             <div class="container">
-            <div class="form1">
+            <div class="form1 form-group">
                 <a href="javascript:history.go(-1);" class="close">+</a>
                 <h6 style="background-color:rgb(103, 175, 220) ; color:white; text-align: center; padding: 9px 0; width:100%;">Stock Category Creation(Seconadary)</h6>
                 <form action="{% url 'savestockcategory' %}" method="post">
@@ -97,15 +116,15 @@
                 <div class="top">
                     <div class="left1" style="color:white ;">
                     <div><p>Name</p></div>
-                    <input type="text"name="name">
+                    <input type="text"name="name"class="form-control">
                     <div><p>(Alias)</p></div>
-                    <input type="text"name="alias">
+                    <input type="text"name="alias"class="form-control">
                     
         
                         <div><p>Under</p></div>
                        
       
-                        <select style="background-color: #2f516f;color: white;" name="u" id="under">
+                        <select style="background-color: #2f516f;color: white;" name="u" id="under"class="form-control">
                            
                             {% for c in cat %}
                              
@@ -114,7 +133,7 @@
                         </select>
                         
                         <div><p>Should quantities of items be added</p></div>
-                        <select style="background-color: #2f516f;color: white;" name="qty">
+                        <select style="background-color: #2f516f;color: white;" name="qty"class="form-control">
                             <option value="No">No</option> 
                             <option value="Yes">Yes</option>
                           
@@ -125,8 +144,10 @@
                 
                 </form>
                 </div>
-                </div>
-                </body>
-
-                {% endblock %}
-        
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+       </div>
+            </div>
+        </div>
+        {% endblock %}
