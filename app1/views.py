@@ -1238,3 +1238,16 @@ def secondarycategory(request):
 
 def productcategory(request):
     return render(request, 'productcategory.html')
+
+
+
+
+
+
+def trialbalance(request):
+    cmp=company.objects.get(id='1')
+    con={
+        'cmp':cmp,
+        } 
+    return render(request, 'trialbalance.html',con) 
+   

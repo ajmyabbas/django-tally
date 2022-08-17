@@ -35,6 +35,14 @@ urlpatterns = [
     path('savestockgroup',views.savestockgroup,name='savestockgroup'),
     path('savestockcategory',views.savestockcategory,name='savestockcategory'),
 
+
+
+
+
+
+
+path('trialbalance',views.trialbalance,name='trialbalance'),
+
     
 
 ]
