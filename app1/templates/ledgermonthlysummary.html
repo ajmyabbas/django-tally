@@ -1,0 +1,202 @@
+
+    {% extends 'base.html' %}
+    {% block body %}
+        {% load static %}
+        <style>
+            *{
+            padding: 0;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing:border-box;
+        }
+       
+        table,th,td
+{
+    border-collapse: collapse;
+  
+}
+table
+{
+    width: 100%;
+    border-color: gray;
+    background-color:rgba(0,0,0,.4);
+}
+
+th.a{
+    text-align: center;
+    width: 120px;
+}
+th
+{
+   
+    border-top: 1.5px solid rgb(100, 107, 114);
+    border-left: 1.5px solid rgb(100, 107, 114);
+    border-bottom: 1.5px solid rgb(100, 107, 114);
+    
+    font-size: 13px;
+    font-weight: lighter;
+    padding: 6px;
+    color:beige;
+    
+   
+}
+
+ td
+{
+    padding: 8px;
+    font-size: 13px;
+    text-align: center;
+ 
+}
+tfoot td.b{
+    padding: 8px;
+    font-size: 13px;
+    text-align: left;
+}
+.btns{
+    color: black;
+    text-decoration: none;
+    
+  
+
+}
+.btns_prnt{
+    width: 100%;
+    text-align: start;
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+    /* padding: 6px; */
+
+}
+tbody tr:hover td{
+    background-color:orange;
+    color: rgb(15, 14, 14);
+}
+.btns_prnt:hover{
+    background-color:orange;
+    color: rgb(15, 14, 14);
+}
+tbody tr:hover td{
+    background-color:orange;
+    color: rgb(15, 14, 14);
+}
+    </style>
+
+        
+    <div style="margin-left: 100px;margin-right: 100px;margin-top: 100px; background-color:rgba(0,0,0,.4);">
+        <h6 style="color: rgb(0, 0, 65); background-color: rgb(142, 211, 250);padding: 2px; height:3%;">Ledger Monthly Summary<span style="margin-left:30%;">{{ cmp.comp_name }}</span></h6>
+    <div style=" display:flex; height: 97%;">
+    <div style=" width:100%;  height: 100%; ">
+       
+        <!--<div style="display:flex; padding: 25px;">
+    
+            <div style="width: 50%; text-align: start;">
+              <h5 style="color: black; font-size: 16px; height: 3%;">Particulars</h5>
+              <h5 style="padding:5px;">1-Apr-22 to 31-March-23</h5>
+        
+          </div>
+          <div style="width: 50%; text-align: end;">
+            <h5 style="color: black; padding:5px;font-size: 16px;">For 1-Apr-22&nbsp;</h5>
+            <br><h5 style="color: black; padding:5px;font-size: 16px;">Quantity &nbsp;Rate &nbsp;Value</h5>
+        
+          </div>
+          </div>-->
+      
+      
+
+      <table>
+        <thead>
+        <tr>
+            <th rowspan="4"width="800">Particulars </th>
+            <th colspan="6" class="a" >Ann Elegent<br>ABC pvt.ltd<br>For 1-Apr-22</th>
+        </tr>
+
+    <tr> <th colspan="2"class="a" >Transactions</th>
+        <th colspan="2"rowspan="2"class="a" >Closing Balance</th></tr>
+     <tr><th class="a" >Debit</th><th class="a">Credit</th>
+        
+        </tr>   
+         
+    </thead>
+    <tbody>
+        <tr>
+            <td><span style="font-style: italic;">Opening Balance</span></td>
+            <td></td>
+            <td></td>
+            
+            <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;"><a href="{% url 'ledgervouchers' %}"><h6>April</h6></a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            
+            
+        </tr>
+          <tr>  <td style="text-align: left;" ><a href=""><h6>May </h6></a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            
+        </tr>
+           <tr> <td style="text-align: left;" ><a href=""><h6>June </h6></a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+           </tr> 
+            <tr><td style="text-align: left;" ><a href=""><h6>July </h6></a></td>
+                <td></td>
+            <td></td>
+            <td></td></tr>
+            <tr><td style="text-align: left;" ><a href=""><h6>August </h6></a></td>
+                <td></td>
+            <td></td>
+            <td></td></tr>
+            <tr><td style="text-align: left;" ><a href=""><h6>September </h6></a></td>
+                <td></td>
+                <td></td>
+                <td></td></tr>
+            <tr><td style="text-align: left;" ><a href=""><h6>October</h6></a></td>
+                <td></td>
+            <td></td>
+            <td></td></tr>
+            <tr><td style="text-align: left;" ><a href=""><h6>November </h6></a></td>
+                <td></td>
+            <td></td>
+            <td></td></tr>
+            <tr><td style="text-align: left;" ><a href=""><h6>December </h6></a></td>
+                <td></td>
+            <td></td>
+            <td></td></tr>
+            <tr><td style="text-align: left;" ><a href=""><h6>January </h6></a></td>
+                <td></td>
+            <td></td>
+            <td></td></tr>
+            <tr><td style="text-align: left;" ><a href=""><h6>February </h6></a></td>
+                <td></td>
+            <td></td>
+            <td></td></tr>
+            <tr><td style="text-align: left;" ><a href=""><h6>March</h6></a></td>
+                <td></td>
+            <td></td>
+            <td></td></tr>
+
+            
+    </tbody>
+    <tfoot>
+        <tr style=" border-top: 1.5px solid rgb(100, 107, 114);">
+            <td class="b">Grand Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
+     </table>
+    </div>
+     </table>
+    </div>
+    
+   
+</div>
+{% endblock %}

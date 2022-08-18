@@ -42,7 +42,10 @@ urlpatterns = [
 
 
 path('trialbalance',views.trialbalance,name='trialbalance'),
-
+path('trialbalanceGroupsummary',views.trialbalanceGroupsummary,name='trialbalanceGroupsummary'),
+path('trialbalanceSubgroup',views.trialbalanceSubgroup,name='trialbalanceSubgroup'),
+path('ledgermonthlysummary',views.ledgermonthlysummary,name='ledgermonthlysummary'),
+path('ledgervouchers',views.ledgervouchers,name='ledgervouchers'),
     
 
 ]

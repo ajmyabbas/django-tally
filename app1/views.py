@@ -1249,5 +1249,33 @@ def trialbalance(request):
     con={
         'cmp':cmp,
         } 
-    return render(request, 'trialbalance.html',con) 
+    return render(request, 'trialbalance.html',con)
+
+def trialbalanceGroupsummary(request):
+    cmp=company.objects.get(id='1')
+    con={
+        'cmp':cmp,
+        } 
+    return render(request, 'trialbalanceGroupsummary.html',con)
+
+def trialbalanceSubgroup(request):
+    cmp=company.objects.get(id='1')
+    con={
+        'cmp':cmp,
+        } 
+    return render(request, 'trialbalanceSubgroup.html',con)       
+
+def ledgermonthlysummary(request):
+    cmp=company.objects.get(id='1')
+    con={
+        'cmp':cmp,
+        } 
+    return render(request, 'ledgermonthlysummary.html',con)
+
+def ledgervouchers(request):
+    cmp=company.objects.get(id='1')
+    con={
+        'cmp':cmp,
+        } 
+    return render(request, 'ledgervouchers.html',con)
    
