@@ -134,34 +134,18 @@ tbody tr:hover td{
         </tr>
     </thead>
     <tbody >
+        {% for agi in ag %}
+        <tr>
+        <td style="width:200px;text-align:left"><a href="{% url 'trialbalanceGroupsummary' agi.id %}">{{ agi.builtgrp_name }}</a></td>
+        <td></td>
+        <td></td>
         
+        </tr>
+        {% endfor %}
+   
             
             
-            <tr>
-                <td style="width:200px;text-align:left"><a href="{% url 'trialbalanceGroupsummary' %}"> Current Liabilities </a></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td style="width:200px;text-align:left">Fixed Assets</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td style="width:200px;text-align:left">Current Assets</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td style="width:200px;text-align:left">Sales Accounts</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td style="width:200px;text-align:left">Purchase Accounts</td>
-                <td></td>
-                <td></td>
-            </tr>
+           
             
             
     </tbody>

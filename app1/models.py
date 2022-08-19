@@ -51,4 +51,22 @@ class voucherlist(models.Model):
 
 class company(models.Model):
     comp_name=models.CharField(max_length=100,null=True)
-    start_date=models.DateField()    
+    start_date=models.DateField() 
+
+
+
+class accountingGroups(models.Model):
+    builtgrp_name=models.CharField(max_length=100,null=True)
+    def __str__(self):
+        return self.builtgrp_name 
+
+class createaccountingGroups(models.Model):
+    usergrp_name=models.CharField(max_length=100,null=True)
+    under=models.ForeignKey(accountingGroups,on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return self.usergrp_name
+
+class ledger(models.Model):
+    name = models.CharField(max_length=255)
+    alias = models.CharField(max_length=255,null=True)
+    under = models.ForeignKey(createaccountingGroups,on_delete = models.CASCADE,null = True)    

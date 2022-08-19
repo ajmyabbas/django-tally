@@ -80,10 +80,31 @@ tbody tr:hover td{
     background-color:orange;
     color: rgb(15, 14, 14);
 }
+@media (max-width: 991px) {
+  .main-panel {
+      margin-left: 0;
+      width: 100%;
+  }
+}
+
+.content-wrapper {
+
+  padding: 1.875rem 1.75rem;
+  width: 100%;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+}
     </style>
 
-        
-    <div style="margin-left: 100px;margin-right: 100px;margin-top: 100px; background-color:rgba(0,0,0,.4);">
+</head>
+<body>
+    <div class="main-panel">
+        <div class="content-wrapper">
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 ">
+    <div style=" background-color:rgba(0,0,0,.4);">
         <h6 style="color: rgb(0, 0, 65); background-color: rgb(142, 211, 250);padding: 2px; height:3%;">Ledger Monthly Summary<span style="margin-left:30%;">{{ cmp.comp_name }}</span></h6>
     <div style=" display:flex; height: 97%;">
     <div style=" width:100%;  height: 100%; ">
@@ -198,5 +219,9 @@ tbody tr:hover td{
     </div>
     
    
+</div></div>
+<div class="col-md-2"></div>
+</div>
+    </div>
 </div>
 {% endblock %}

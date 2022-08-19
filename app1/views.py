@@ -6,7 +6,7 @@ from webbrowser import get
 from django.db.models.functions import Coalesce
 from django.shortcuts import redirect, render
 from app1 import models
-from app1.models import CreateStockCateg, CreateStockGrp, StockGroup, Stockcategory, company, stock_item,voucherlist
+from app1.models import CreateStockCateg, CreateStockGrp, StockGroup, Stockcategory, company, stock_item,voucherlist,accountingGroups,createaccountingGroups
 from django.db.models import Sum
 
 # Create your views here.
@@ -1246,24 +1246,28 @@ def productcategory(request):
 
 def trialbalance(request):
     cmp=company.objects.get(id='1')
+    ag=accountingGroups.objects.all() 
     con={
         'cmp':cmp,
+        'ag':ag,
         } 
     return render(request, 'trialbalance.html',con)
 
-def trialbalanceGroupsummary(request):
+def trialbalanceGroupsummary(request,tk):
     cmp=company.objects.get(id='1')
+    cg=createaccountingGroups.objects.filter(under_id=tk)
     con={
         'cmp':cmp,
+        'cg':cg
         } 
     return render(request, 'trialbalanceGroupsummary.html',con)
 
-def trialbalanceSubgroup(request):
+def ledgersummary(request):
     cmp=company.objects.get(id='1')
     con={
         'cmp':cmp,
         } 
-    return render(request, 'trialbalanceSubgroup.html',con)       
+    return render(request, 'ledgersummary.html',con)       
 
 def ledgermonthlysummary(request):
     cmp=company.objects.get(id='1')

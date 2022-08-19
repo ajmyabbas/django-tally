@@ -134,14 +134,16 @@ tbody tr:hover td{
         </tr>
     </thead>
     <tbody >
+        {% for cgi in cg %}
+        <tr>
+        <td style="width:200px;text-align:left"><a href="{% url 'ledgersummary'  %}">{{ cgi.usergrp_name }}</a></td>
+        <td></td>
+        <td></td>
         
+        </tr>
+        {% endfor %}
             
             
-            <tr>
-                <td style="width:200px;text-align:left"><a href="trialbalanceSubgroup">Sundry Creditors</a></td>
-                <td></td>
-                <td></td>
-            </tr>
             
             
     </tbody>

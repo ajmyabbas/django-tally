@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app1.models import CreateStockGrp,CreateStockCateg, StockGroup, Stockcategory,stock_item,voucherlist,company
+from app1.models import CreateStockGrp,CreateStockCateg, StockGroup, Stockcategory, createaccountingGroups,stock_item,voucherlist,company,accountingGroups,ledger
 # Register your models here.
 @admin.register(CreateStockGrp)
 class stockgrpadmin(admin.ModelAdmin):
@@ -27,4 +27,17 @@ class voucheradmin(admin.ModelAdmin):
 
 @admin.register(company)
 class companyadmin(admin.ModelAdmin):
-    list_display = ('id','comp_name','start_date')    
+    list_display = ('id','comp_name','start_date')   
+
+@admin.register(accountingGroups)
+class accountingGroupsadmin(admin.ModelAdmin):
+    list_display = ('id','builtgrp_name') 
+
+
+@admin.register(createaccountingGroups)
+class createaccountingGroupsadmin(admin.ModelAdmin):
+    list_display = ('id','usergrp_name','under') 
+
+@admin.register(ledger)
+class ledgeradmin(admin.ModelAdmin):
+    list_display = ('id','name','alias','under')     
